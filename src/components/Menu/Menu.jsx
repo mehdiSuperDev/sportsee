@@ -1,31 +1,22 @@
-import { NavLink } from 'react-router-dom';
 import styles from './Menu.module.css';
-// import { useState } from 'react';
+import menuIcon from '../../assets/images/logo.png';
 
 function Menu() {
   return (
-    <nav>
-      <ul className={styles.menu}>
+    <nav className="full-height">
+      <ul className={`${styles.list} full-height`}>
         <li>
-          <NavLink
-            to="/"
-            className={({ isActive }) =>
-              isActive ? styles.active : styles.unselected
-            }
-          >
-            Home
-          </NavLink>
+          <a href="#" className={styles.itemIcon}>
+            <img src={menuIcon} alt="menu icon" />
+            <span>Sportsee</span>
+          </a>
         </li>
         <li>
-          <NavLink
-            to="/t"
-            className={({ isActive }) =>
-              isActive ? styles.active : styles.unselected
-            }
-          >
-            Test
-          </NavLink>
+          <a href="#">Accueil</a>
         </li>
+        <li>Profil</li>
+        <li>Réglage</li>
+        <li>Communauté</li>
       </ul>
     </nav>
   );

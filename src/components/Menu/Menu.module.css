@@ -1,21 +1,30 @@
-.menu {
+.list {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    
+    margin: 0px 30px;
 
-    height: 100%;
-    margin: 30px;
+    color: var(--primary-color);
+
+    font-weight: 500;
+    font-size: 1.3rem;
 }
 
-.menu a {
+.itemIcon {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    column-gap: 10px;
+}
+
+.itemIcon span {
+    color: var(--secondary-color-darker);
+}
+
+.list a {
     text-decoration: none;
-}
-
-.unselected {
-    color: orange;
-}
-
-.active {
-    color: green;
+    color: inherit;
 }
