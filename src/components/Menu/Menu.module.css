@@ -9,10 +9,13 @@
 }
 
 .menu a {
-    color: red;
     text-decoration: none;
 }
 
-.menu a.active {
+.unselected {
+    color: orange;
+}
+
+.active {
     color: green;
 }
