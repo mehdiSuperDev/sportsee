@@ -1,0 +1,6 @@
+.container {
+    height: 265px;
+    width: 265px;
+    background-color: var(--component-background-color);
+    border-radius: 10px;
+}

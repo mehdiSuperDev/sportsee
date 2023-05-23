@@ -61,7 +61,7 @@ CustomTooltip.propTypes = {
       value: PropTypes.number,
     }),
   ),
-  label: PropTypes.string,
+  label: PropTypes.number,
 };
 
 function BarChartActivity() {
