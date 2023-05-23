@@ -1,10 +1,11 @@
 import Header from '../components/Header/Header';
+import BarChartActivity from '../components/BarChart/BarChartActivity';
 
 function Home() {
   return (
     <>
       <Header />
-      <h1>Home</h1>
+      <BarChartActivity />
     </>
   );
 }

@@ -1,0 +1,58 @@
+.barChartContainer {
+    height: 320px;
+    width: 835px;
+    border-radius: 10px;
+
+    background-color: var(--component-background-color);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 20px;
+    font-weight: 550;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+
+    font-size: 16px;
+}
+
+.spacer {
+    display: flex;
+    flex-direction: row;
+    column-gap: 10px;
+
+    font-size: 14px;
+    color: #74798C;
+
+    align-items: center;
+}
+
+.spacer img {
+    width: 7px;
+    height: 7px;
+
+    margin-right: -5px;
+}
+
+.tooltipContainer {
+    color: white;
+    background-color: var(--secondary-color);
+    padding: 8px;
+
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+
+.tooltipContainer p {
+    text-align: center;
+    font-size: 12px;
+    font-weight: 500;
+}
