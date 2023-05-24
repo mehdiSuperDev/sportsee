@@ -1,0 +1,38 @@
+.container {
+    height: 125px;
+    width: 260px;
+    background-color: var(--component-background-color);
+    border-radius: 10px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    column-gap: 25px;
+}
+
+.container img {
+    width: 60px;
+    height: 60px;
+}
+
+.information {
+    height: 60px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+    justify-content: center;
+}
+
+.information p:first-child {
+    font-style: bold;
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.information p:last-child {
+    font-weight: 500;
+    font-style: medium;
+    font-size: 14px;
+    color: #74798C;
+}
