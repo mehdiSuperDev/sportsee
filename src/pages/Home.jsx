@@ -10,7 +10,7 @@ function Home() {
       <BarChartActivity />
       {/* <ActivityScore score={12} /> */}
       <p>SPACER</p>
-      <Card nutrientTypeEnum="glucide" value={12} />
+      <Card nutrientTypeEnum="calories" value={12000} />
     </>
   );
 }

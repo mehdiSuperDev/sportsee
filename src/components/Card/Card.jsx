@@ -20,13 +20,25 @@ const getCardComponent = (value, label, iconName) => {
 function Card({ nutrientTypeEnum, value }) {
   switch (nutrientTypeEnum) {
     case 'glucide':
-      return getCardComponent(value, 'Glucide', apple);
+      return getCardComponent(`${value.toLocaleString()}g`, 'Glucide', apple);
     case 'proteine':
-      return getCardComponent(value, 'Proteine', chicken);
+      return getCardComponent(
+        `${value.toLocaleString()}g`,
+        'Proteine',
+        chicken,
+      );
     case 'lipides':
-      return getCardComponent(value, 'Lipides', hamburger);
+      return getCardComponent(
+        `${value.toLocaleString()}g`,
+        'Lipides',
+        hamburger,
+      );
     case 'calories':
-      return getCardComponent(value, 'Calories', fire);
+      return getCardComponent(
+        `${value.toLocaleString()}kCal`,
+        'Calories',
+        fire,
+      );
     default:
       break;
   }
