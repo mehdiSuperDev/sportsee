@@ -9,6 +9,7 @@ function Home() {
     <>
       <Header />
       <BarChartActivity />
+      <p>SPACER</p>
       <ActivityScore data={{ name: 'score', value: 75.0 }} />
       <p>SPACER</p>
       <Card nutrientTypeEnum="calories" value={12000} />

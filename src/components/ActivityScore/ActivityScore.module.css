@@ -3,4 +3,28 @@
     width: 265px;
     background-color: var(--component-background-color);
     border-radius: 10px;
+    font-family: 'Roboto', sans-serif;
+
+    position: relative;
+}
+
+.container h2 {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+
+    font-weight: 500;
+    font-size: 15px;
+}
+
+.labelHighlight {
+    fill: #282D30;
+    font-weight: bold;
+    font-size: 26px;
+}
+
+.label {
+    fill: #74798C;
+    font-weight: medium;
+    font-size: 16px;
 }

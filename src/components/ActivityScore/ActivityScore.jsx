@@ -2,10 +2,41 @@ import styles from './ActivityScore.module.css';
 import {
   RadialBarChart,
   RadialBar,
-  Legend,
   ResponsiveContainer,
+  PolarAngleAxis,
 } from 'recharts';
 import PropTypes from 'prop-types';
+
+const scoreLabel = ({ viewBox, value }) => {
+  const { cx, cy } = viewBox;
+
+  return (
+    <text
+      x={cx}
+      y={cy}
+      fill="#8884d8"
+      textAnchor="middle"
+      dominantBaseline="middle"
+    >
+      <tspan x={cx} dy="-0.3em" className={styles.labelHighlight}>
+        {`${value}%`}
+      </tspan>
+      <tspan
+        x={cx}
+        dy="1.2em"
+        className={styles.label}
+      >{`de Votre objectif`}</tspan>
+    </text>
+  );
+};
+
+scoreLabel.propTypes = {
+  viewBox: PropTypes.shape({
+    cx: PropTypes.number.isRequired,
+    cy: PropTypes.number.isRequired,
+  }).isRequired,
+  value: PropTypes.number.isRequired,
+};
 
 function ActivityScore({ data }) {
   return (
@@ -19,22 +50,19 @@ function ActivityScore({ data }) {
           data={[data]}
           cx="50%"
           cy="50%"
-          startAngle={0}
-          endAngle={(data.value / 100) * 360}
         >
+          <PolarAngleAxis
+            type="number"
+            domain={[0, 100]}
+            angleAxisId={0}
+            tick={false}
+          />
           <RadialBar
             minAngle={15}
-            background="#FF0000"
             cornerRadius="50%"
             dataKey="value"
-            fill="#8884D8"
-          />
-          <Legend
-            iconSize={10}
-            layout="vertical"
-            verticalAlign="middle"
-            cx="50%"
-            cy="50%"
+            fill="#FF0000"
+            label={scoreLabel}
           />
         </RadialBarChart>
       </ResponsiveContainer>
