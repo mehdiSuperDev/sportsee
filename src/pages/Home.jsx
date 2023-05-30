@@ -4,24 +4,56 @@ import ActivityScore from '../components/ActivityScore/ActivityScore';
 import Card from '../components/Card/Card';
 import SessionLineChart from '../components/SessionLineChart/SessionLineChart';
 import RadarChartActivity from '../components/RadarChart/RadarChart';
+import styles from './Home.module.css';
+import PropTypes from 'prop-types';
 
-import TestLineChart from '../components/Test/Test';
+const CardList = ({ data }) => {
+  return (
+    <div className={styles.cardList}>
+      {data.map((card) => (
+        <Card key={card.name} nutrientTypeEnum={card.name} value={card.value} />
+      ))}
+    </div>
+  );
+};
+
+CardList.propTypes = {
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      value: PropTypes.number.isRequired,
+    }),
+  ).isRequired,
+};
+
+const cardData = [
+  {
+    name: 'glucides',
+    value: 80,
+  },
+  {
+    name: 'proteines',
+    value: 120,
+  },
+  {
+    name: 'lipides',
+    value: 140,
+  },
+  {
+    name: 'calories',
+    value: 50,
+  },
+];
 
 function Home() {
   return (
     <>
       <Header />
       <BarChartActivity />
-      <p>SPACER</p>
       <ActivityScore data={{ name: 'score', value: 75.0 }} />
-      <p>SPACER</p>
-      <Card nutrientTypeEnum="calories" value={12000} />
-      <p>SPACER</p>
+      <CardList data={cardData} />
       <SessionLineChart />
-      <p>SPACER</p>
       <RadarChartActivity />
-      <p>SPACER</p>
-      <TestLineChart />
     </>
   );
 }

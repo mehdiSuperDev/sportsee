@@ -19,12 +19,12 @@ const getCardComponent = (value, label, iconName) => {
 
 function Card({ nutrientTypeEnum, value }) {
   switch (nutrientTypeEnum) {
-    case 'glucide':
+    case 'glucides':
       return getCardComponent(`${value.toLocaleString()}g`, 'Glucide', apple);
-    case 'proteine':
+    case 'proteines':
       return getCardComponent(
         `${value.toLocaleString()}g`,
-        'Proteine',
+        'Proteines',
         chicken,
       );
     case 'lipides':
@@ -46,7 +46,7 @@ function Card({ nutrientTypeEnum, value }) {
 
 Card.propTypes = {
   nutrientTypeEnum: PropTypes.oneOf([
-    'glucide',
+    'glucides',
     'calories',
     'lipides',
     'proteines',
