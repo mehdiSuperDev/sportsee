@@ -1,6 +1,8 @@
 .barChartContainer {
     height: 320px;
-    width: 835px;
+    /* width: 835px; */
+    max-width: 835px;
+    flex-grow: 1;
     border-radius: 10px;
 
     background-color: var(--component-background-color);
@@ -9,9 +11,15 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    row-gap: 20px;
 
     padding: 20px;
     font-weight: 550;
+}
+
+.barChart {
+    /* max-width: 765px; */
+    max-height: 205px;
 }
 
 .header {

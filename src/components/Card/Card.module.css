@@ -1,8 +1,9 @@
 .container {
-    height: 125px;
-    width: 260px;
+    /* height: 125px; */
+    max-width: 260px;
     background-color: var(--component-background-color);
     border-radius: 10px;
+    padding: 40px;
 
     display: flex;
     flex-direction: row;
