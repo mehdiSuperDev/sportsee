@@ -1,11 +1,13 @@
 .container {
     width: 260px;
     height: 265px;
+    padding: 20px;
 
     border-radius: 10px;
 
     /* Test */
     background-color: #00FF00;
+    position: relative;
 }
 
 .header {
