@@ -1,6 +1,7 @@
 .container {
     height: 265px;
-    width: 265px;
+    /* width: 265px; */
+    flex-grow: 1;
     background-color: var(--component-background-color);
     border-radius: 10px;
     font-family: 'Roboto', sans-serif;
