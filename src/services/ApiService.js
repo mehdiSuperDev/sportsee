@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const baseURL = 'http://localhost:3000';
 
-class UserService {
+export default class UserService {
   static async getInformation(id) {
     try {
       return axios.get(`${baseURL}/user/${id}`);
@@ -35,5 +35,3 @@ class UserService {
     }
   }
 }
-
-export default UserService;

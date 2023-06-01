@@ -6,6 +6,8 @@ import Card from '../components/Card/Card';
 import RadarChartActivity from '../components/RadarChart/RadarChart';
 import styles from './Home.module.css';
 import PropTypes from 'prop-types';
+import UserService from '../services/ApiService.js';
+import { useEffect, useState } from 'react';
 
 const CardList = ({ data }) => {
   return (
@@ -46,6 +48,18 @@ const cardData = [
 ];
 
 function Home() {
+  const [, setActivityData] = useState(null);
+
+  const fetchActivityData = async () => {
+    const data = await UserService.getActivity(18);
+    console.log(data.data);
+    setActivityData(data);
+  };
+
+  useEffect(() => {
+    fetchActivityData();
+  }, []);
+
   return (
     <>
       <Header />
