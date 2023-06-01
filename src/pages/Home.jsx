@@ -48,16 +48,43 @@ const cardData = [
 ];
 
 function Home() {
+  const [information, setInformationData] = useState(null);
   const [, setActivityData] = useState(null);
+  const [, setSessionsData] = useState(null);
+  const [, setPerformanceData] = useState(null);
+
+  const fetchInformation = async () => {
+    const response = await UserService.getInformation(18);
+    console.log('fetchInformation');
+    setInformationData(response.data.data);
+  };
 
   const fetchActivityData = async () => {
     const data = await UserService.getActivity(18);
+    console.log('fetchActivityData');
     console.log(data.data);
     setActivityData(data);
   };
 
+  const fetchSessionsData = async () => {
+    const data = await UserService.getSessions(18);
+    console.log('fetchSessionsData');
+    console.log(data.data);
+    setSessionsData(data);
+  };
+
+  const fetchPerformance = async () => {
+    const data = await UserService.getPerformance(18);
+    console.log('fetchPerformance');
+    console.log(data.data);
+    setPerformanceData(data);
+  };
+
   useEffect(() => {
     fetchActivityData();
+    fetchSessionsData();
+    fetchPerformance();
+    fetchInformation();
   }, []);
 
   return (
@@ -67,7 +94,9 @@ function Home() {
         <div className={styles.vertical}>
           <BarChartActivity />
           <div className={styles.chartBox}>
-            <ActivityScore data={{ name: 'score', value: 75.0 }} />
+            <ActivityScore
+              data={{ name: 'score', value: information?.score * 100 || 0 }}
+            />
             <RadarChartActivity />
           </div>
         </div>

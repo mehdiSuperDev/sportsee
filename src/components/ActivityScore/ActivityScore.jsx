@@ -6,6 +6,7 @@ import {
   PolarAngleAxis,
 } from 'recharts';
 import PropTypes from 'prop-types';
+import { useEffect } from 'react';
 
 const scoreLabel = ({ viewBox, value }) => {
   const { cx, cy } = viewBox;
@@ -39,6 +40,11 @@ scoreLabel.propTypes = {
 };
 
 function ActivityScore({ data }) {
+  useEffect(() => {
+    console.log('useEffect');
+    console.log(data);
+  });
+
   return (
     <div className={styles.container}>
       <h2>Score</h2>
