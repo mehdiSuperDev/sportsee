@@ -51,14 +51,16 @@ function Home() {
   const [information, setInformationData] = useState(null);
   const [, setActivityData] = useState(null);
   const [, setSessionsData] = useState(null);
-  const [, setPerformanceData] = useState(null);
+  const [performanceData, setPerformanceData] = useState(null);
 
+  //OK
   const fetchInformation = async () => {
     const response = await UserService.getInformation(18);
     console.log('fetchInformation');
     setInformationData(response.data.data);
   };
 
+  //KO
   const fetchActivityData = async () => {
     const data = await UserService.getActivity(18);
     console.log('fetchActivityData');
@@ -73,11 +75,15 @@ function Home() {
     setSessionsData(data);
   };
 
+  //OK
   const fetchPerformance = async () => {
-    const data = await UserService.getPerformance(18);
-    console.log('fetchPerformance');
-    console.log(data.data);
-    setPerformanceData(data);
+    const response = await UserService.getPerformance(18);
+
+    const kindDict = response.data.data.kind;
+    const mappedData = response.data.data.data.map((item) => {
+      return { value: item.value, kind: kindDict[item.kind] };
+    });
+    setPerformanceData(mappedData);
   };
 
   useEffect(() => {
@@ -97,7 +103,7 @@ function Home() {
             <ActivityScore
               data={{ name: 'score', value: information?.score * 100 || 0 }}
             />
-            <RadarChartActivity />
+            <RadarChartActivity data={performanceData} />
           </div>
         </div>
         <CardList data={cardData} />
