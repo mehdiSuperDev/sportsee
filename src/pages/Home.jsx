@@ -25,39 +25,42 @@ CardList.propTypes = {
       name: PropTypes.string.isRequired,
       value: PropTypes.number.isRequired,
     }),
-  ).isRequired,
+  ),
 };
-
-const cardData = [
-  {
-    name: 'glucides',
-    value: 80,
-  },
-  {
-    name: 'proteines',
-    value: 120,
-  },
-  {
-    name: 'lipides',
-    value: 140,
-  },
-  {
-    name: 'calories',
-    value: 50,
-  },
-];
 
 function Home() {
   const [information, setInformationData] = useState(null);
+
+  const [cardData, setCardData] = useState([]);
+
   const [, setActivityData] = useState(null);
   const [, setSessionsData] = useState(null);
   const [performanceData, setPerformanceData] = useState(null);
+
+  function setCards(response) {
+    if (response) {
+      const key = response.data.data.keyData;
+      console.log('key');
+      console.log(key);
+
+      console.log('key.calorieCount');
+      console.log(key.calorieCount);
+
+      setCardData([
+        { name: 'glucides', value: key.calorieCount },
+        { name: 'proteines', value: key.proteinCount },
+        { name: 'lipides', value: key.carbohydrateCount },
+        { name: 'calories', value: key.lipidCount },
+      ]);
+    }
+  }
 
   //OK
   const fetchInformation = async () => {
     const response = await UserService.getInformation(18);
     console.log('fetchInformation');
-    setInformationData(response.data.data);
+    setInformationData(response);
+    setCards(response);
   };
 
   //KO
@@ -81,8 +84,10 @@ function Home() {
 
     const kindDict = response.data.data.kind;
     const mappedData = response.data.data.data.map((item) => {
-      return { value: item.value, kind: kindDict[item.kind] };
+      return { kind: kindDict[item.kind], value: item.value };
     });
+    console.log('mappedData');
+    console.log(mappedData);
     setPerformanceData(mappedData);
   };
 
@@ -91,6 +96,7 @@ function Home() {
     fetchSessionsData();
     fetchPerformance();
     fetchInformation();
+    setCards();
   }, []);
 
   return (
@@ -101,9 +107,12 @@ function Home() {
           <BarChartActivity />
           <div className={styles.chartBox}>
             <ActivityScore
-              data={{ name: 'score', value: information?.score * 100 || 0 }}
+              data={{
+                name: 'score',
+                value: information?.data.data.score * 100 || 0,
+              }}
             />
-            <RadarChartActivity data={performanceData} />
+            {performanceData && <RadarChartActivity data={performanceData} />}
           </div>
         </div>
         <CardList data={cardData} />

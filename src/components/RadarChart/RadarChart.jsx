@@ -10,33 +10,6 @@ import styles from './RadarChart.module.css';
 import PropTypes from 'prop-types';
 
 function RadarChartActivity({ data }) {
-  // const data = [
-  //   {
-  //     value: 80,
-  //     kind: 'cardio',
-  //   },
-  //   {
-  //     value: 120,
-  //     kind: 'energy',
-  //   },
-  //   {
-  //     value: 140,
-  //     kind: 'endurance',
-  //   },
-  //   {
-  //     value: 50,
-  //     kind: 'strength',
-  //   },
-  //   {
-  //     value: 200,
-  //     kind: 'speed',
-  //   },
-  //   {
-  //     value: 90,
-  //     kind: 'intensity',
-  //   },
-  // ];
-
   return (
     <div className={styles.container}>
       <ResponsiveContainer width="100%" height="100%">
@@ -67,7 +40,34 @@ function RadarChartActivity({ data }) {
 }
 
 RadarChartActivity.propTypes = {
-  data: PropTypes.array.isRequired,
+  data: PropTypes.array,
 };
 
 export default RadarChartActivity;
+
+// const data = [
+//   {
+//     value: 80,
+//     kind: 'cardio',
+//   },
+//   {
+//     value: 120,
+//     kind: 'energy',
+//   },
+//   {
+//     value: 140,
+//     kind: 'endurance',
+//   },
+//   {
+//     value: 50,
+//     kind: 'strength',
+//   },
+//   {
+//     value: 200,
+//     kind: 'speed',
+//   },
+//   {
+//     value: 90,
+//     kind: 'intensity',
+//   },
+// ];
