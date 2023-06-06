@@ -35,7 +35,12 @@ function Home() {
 
   const [, setActivityData] = useState(null);
   const [, setSessionsData] = useState(null);
-  const [performanceData, setPerformanceData] = useState(null);
+  const [performanceData, setPerformanceData] = useState([
+    { name: 'glucides', value: 0 },
+    { name: 'proteines', value: 0 },
+    { name: 'lipides', value: 0 },
+    { name: 'calories', value: 0 },
+  ]);
 
   function setCards(response) {
     if (response) {
@@ -92,11 +97,19 @@ function Home() {
   };
 
   useEffect(() => {
-    fetchActivityData();
-    fetchSessionsData();
-    fetchPerformance();
     fetchInformation();
-    setCards();
+  }, []);
+
+  useEffect(() => {
+    fetchActivityData();
+  }, []);
+
+  useEffect(() => {
+    fetchSessionsData();
+  }, []);
+
+  useEffect(() => {
+    fetchPerformance();
   }, []);
 
   return (
@@ -112,7 +125,7 @@ function Home() {
                 value: information?.data.data.score * 100 || 0,
               }}
             />
-            {performanceData && <RadarChartActivity data={performanceData} />}
+            <RadarChartActivity data={performanceData} />
           </div>
         </div>
         <CardList data={cardData} />
