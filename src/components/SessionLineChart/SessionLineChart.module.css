@@ -2,10 +2,15 @@
     flex: 0 1 auto;
 } */
 
+.parent {
+     flex: 0 0 33.33%;
+}
+
 .line-chart {
-    flex-grow: 0;     
+    /* flex-grow: 0;     
     flex-shrink: 1;   
-    flex-basis: auto;
+    flex-basis: auto; */
+    background-color: yellow;
 }
 
 .container {

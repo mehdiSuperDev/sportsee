@@ -65,7 +65,12 @@ function SessionLineChart() {
   ];
 
   return (
-    <ResponsiveContainer width="33%" height="100%" className="styles.container">
+    // <div className="styles.parent">
+    <ResponsiveContainer
+      width="100%"
+      height="100%"
+      className="styles.container"
+    >
       <LineChart data={data}>
         <CartesianGrid stroke="" fill="#FF0000" />
         <XAxis
@@ -85,6 +90,7 @@ function SessionLineChart() {
         {/* <Legend content={<RenderLegend />} /> */}
       </LineChart>
     </ResponsiveContainer>
+    // </div>
   );
 }
 

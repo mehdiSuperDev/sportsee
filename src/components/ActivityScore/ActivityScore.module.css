@@ -27,7 +27,7 @@
 
 .container {
     height: 265px;
-    flex-grow: 1;
+    flex: 0 0 33.33%;
     border-radius: 10px;
     font-family: 'Roboto', sans-serif;
     position: relative;
