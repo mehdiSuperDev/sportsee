@@ -4,47 +4,26 @@ import {
   RadialBar,
   ResponsiveContainer,
   PolarAngleAxis,
+  Legend,
 } from 'recharts';
 import PropTypes from 'prop-types';
-import { useEffect } from 'react';
 
-const scoreLabel = ({ viewBox, value }) => {
-  const { cx, cy } = viewBox;
-
+function CustomLegendScore({ score }) {
   return (
-    <text
-      x={cx}
-      y={cy}
-      fill="#8884d8"
-      textAnchor="middle"
-      dominantBaseline="middle"
-    >
-      <tspan x={cx} dy="-0.3em" className={styles.labelHighlight}>
-        {`${value}%`}
-      </tspan>
-      <tspan
-        x={cx}
-        dy="1.2em"
-        className={styles.label}
-      >{`de Votre objectif`}</tspan>
-    </text>
+    <div className={styles.legend}>
+      <p className={styles.legendTextHighlight}>{score}%</p>
+      <p className={styles.legendText}>
+        de <br /> votre objectif
+      </p>
+    </div>
   );
-};
+}
 
-scoreLabel.propTypes = {
-  viewBox: PropTypes.shape({
-    cx: PropTypes.number.isRequired,
-    cy: PropTypes.number.isRequired,
-  }).isRequired,
-  value: PropTypes.number.isRequired,
+CustomLegendScore.propTypes = {
+  score: PropTypes.number.isRequired,
 };
 
 function ActivityScore({ data }) {
-  useEffect(() => {
-    console.log('useEffect');
-    console.log(data);
-  });
-
   return (
     <div className={styles.container}>
       <h2>Score</h2>
@@ -68,7 +47,11 @@ function ActivityScore({ data }) {
             cornerRadius="50%"
             dataKey="value"
             fill="#FF0000"
-            label={scoreLabel}
+          />
+          <Legend
+            verticalAlign="middle"
+            content={<CustomLegendScore score={data.value} />}
+            className="recharts-legend"
           />
         </RadialBarChart>
       </ResponsiveContainer>
@@ -84,36 +67,3 @@ ActivityScore.propTypes = {
 };
 
 export default ActivityScore;
-
-// [
-//     {
-//         id: 12,
-//         userInfos: {
-//             firstName: 'Karl',
-//             lastName: 'Dovineau',
-//             age: 31,
-//         },
-//         todayScore: 0.12,
-//         keyData: {
-//             calorieCount: 1930,
-//             proteinCount: 155,
-//             carbohydrateCount: 290,
-//             lipidCount: 50
-//         }
-//     },
-//     {
-//         id: 18,
-//         userInfos: {
-//             firstName: 'Cecilia',
-//             lastName: 'Ratorez',
-//             age: 34,
-//         },
-//         score: 0.3,
-//         keyData: {
-//             calorieCount: 2500,
-//             proteinCount: 90,
-//             carbohydrateCount: 150,
-//             lipidCount: 120
-//         }
-//     }
-// ]

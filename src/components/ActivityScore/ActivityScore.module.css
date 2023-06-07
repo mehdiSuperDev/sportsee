@@ -1,31 +1,43 @@
+/* CustomLegend */
+
+.legend {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.legend p {
+    text-align: center;
+}
+
+.legendTextHighlight {
+    color: #282D30;
+    font-weight: bold;
+    font-size: 26px;
+}
+
+.legendText {
+    color: #74798C;
+    font-weight: medium;
+    font-size: 16px;
+}
+
+/* container */
+
 .container {
     height: 265px;
-    /* width: 265px; */
     flex-grow: 1;
-    background-color: var(--component-background-color);
     border-radius: 10px;
     font-family: 'Roboto', sans-serif;
-
     position: relative;
+    background-color: var(--component-background-color);
 }
 
 .container h2 {
     position: absolute;
     top: 20px;
     left: 20px;
-
     font-weight: 500;
     font-size: 15px;
-}
-
-.labelHighlight {
-    fill: #282D30;
-    font-weight: bold;
-    font-size: 26px;
-}
-
-.label {
-    fill: #74798C;
-    font-weight: medium;
-    font-size: 16px;
 }

@@ -45,11 +45,6 @@ function Home() {
   function setCards(response) {
     if (response) {
       const key = response.data.data.keyData;
-      console.log('key');
-      console.log(key);
-
-      console.log('key.calorieCount');
-      console.log(key.calorieCount);
 
       setCardData([
         { name: 'glucides', value: key.calorieCount },
@@ -63,7 +58,6 @@ function Home() {
   //OK
   const fetchInformation = async () => {
     const response = await UserService.getInformation(18);
-    console.log('fetchInformation');
     setInformationData(response);
     setCards(response);
   };
@@ -71,15 +65,11 @@ function Home() {
   //KO
   const fetchActivityData = async () => {
     const data = await UserService.getActivity(18);
-    console.log('fetchActivityData');
-    console.log(data.data);
     setActivityData(data);
   };
 
   const fetchSessionsData = async () => {
     const data = await UserService.getSessions(18);
-    console.log('fetchSessionsData');
-    console.log(data.data);
     setSessionsData(data);
   };
 
@@ -91,8 +81,6 @@ function Home() {
     const mappedData = response.data.data.data.map((item) => {
       return { kind: kindDict[item.kind], value: item.value };
     });
-    console.log('mappedData');
-    console.log(mappedData);
     setPerformanceData(mappedData);
   };
 
