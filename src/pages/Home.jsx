@@ -2,7 +2,7 @@ import Header from '../components/Header/Header';
 import BarChartActivity from '../components/BarChart/BarChartActivity';
 import ActivityScore from '../components/ActivityScore/ActivityScore';
 import Card from '../components/Card/Card';
-// import SessionLineChart from '../components/SessionLineChart/SessionLineChart';
+import SessionLineChart from '../components/SessionLineChart/SessionLineChart';
 import RadarChartActivity from '../components/RadarChart/RadarChart';
 import styles from './Home.module.css';
 import PropTypes from 'prop-types';
@@ -107,6 +107,7 @@ function Home() {
         <div className={styles.vertical}>
           <BarChartActivity />
           <div className={styles.chartBox}>
+            <SessionLineChart />
             <ActivityScore
               data={{
                 name: 'score',
