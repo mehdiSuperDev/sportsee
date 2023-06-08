@@ -4,16 +4,18 @@ import {
   XAxis,
   Line,
   CartesianGrid,
-  Bar,
+  // Bar,
+  Legend,
+  YAxis,
   ResponsiveContainer,
   // Legend,
 } from 'recharts';
 // import PropTypes from 'prop-types';
 import styles from './SessionLineChart.module.css';
 
-// const RenderLegend = () => {
-//   return <p className={styles.header}>Durée moyenne des sessions</p>;
-// };
+const RenderLegend = () => {
+  return <p className={styles.header}>Durée moyenne des sessions</p>;
+};
 
 const CustomTooltip = () => {
   return (
@@ -32,66 +34,106 @@ const CustomTooltip = () => {
 //   containerWidth: PropTypes.number,
 // };
 
-function SessionLineChart() {
-  const data = [
-    {
-      day: 1,
-      sessionLength: 30,
-    },
-    {
-      day: 2,
-      sessionLength: 23,
-    },
-    {
-      day: 3,
-      sessionLength: 45,
-    },
-    {
-      day: 4,
-      sessionLength: 50,
-    },
-    {
-      day: 5,
-      sessionLength: 10,
-    },
-    {
-      day: 6,
-      sessionLength: 20,
-    },
-    {
-      day: 7,
-      sessionLength: 60,
-    },
-  ];
+const data = [
+  {
+    day: 1,
+    sessionLength: 30,
+  },
+  {
+    day: 2,
+    sessionLength: 23,
+  },
+  {
+    day: 3,
+    sessionLength: 45,
+  },
+  {
+    day: 4,
+    sessionLength: 50,
+  },
+  {
+    day: 5,
+    sessionLength: 10,
+  },
+  {
+    day: 6,
+    sessionLength: 20,
+  },
+  {
+    day: 7,
+    sessionLength: 60,
+  },
+];
 
+function SessionLineChart() {
   return (
-    // <div className="styles.parent">
     <ResponsiveContainer
       width="100%"
       height="100%"
       className="styles.container"
     >
-      <LineChart data={data}>
+      <LineChart width="50%" height="50%" data={data}>
         <CartesianGrid stroke="" fill="#FF0000" />
         <XAxis
           dataKey="day"
-          tick={{ fill: '#FFFFFF', opacity: '0.5' }}
-          tickMargin={20}
+          stroke="#FFFFFF"
+          opacity={0.5}
+          tickLine={false}
+          axisLine={false}
+        />
+        <YAxis
+          padding={{ top: 50 }}
+          stroke="#FFFFFF"
+          opacity={0.5}
+          tickLine={false}
+          axisLine={false}
+          hide
         />
         <Tooltip content={<CustomTooltip />} />
+        <Legend />
         <Line
           type="natural"
-          dot={false}
           dataKey="sessionLength"
+          stroke="#FFFFFF"
+          dot={false}
           strokeWidth={2.5}
-          stroke="white"
+          legendType="none"
         />
-        <Bar dataKey="sessionLength" fill="#00FF00" />
-        {/* <Legend content={<RenderLegend />} /> */}
+        <Legend content={<RenderLegend />} />
       </LineChart>
     </ResponsiveContainer>
-    // </div>
   );
 }
+
+// function SessionLineChart() {
+//   return (
+//     // <div className="styles.parent">
+//     <ResponsiveContainer
+//       width="100%"
+//       height="100%"
+//       className="styles.container"
+//     >
+//       <LineChart data={data}>
+//         <CartesianGrid stroke="" fill="#FF0000" />
+//         <XAxis
+//           dataKey="day"
+//           tick={{ fill: '#FFFFFF', opacity: '0.5' }}
+//           tickMargin={20}
+//         />
+//         <Tooltip content={<CustomTooltip />} />
+//         <Line
+//           type="natural"
+//           dot={false}
+//           dataKey="sessionLength"
+//           strokeWidth={2.5}
+//           stroke="white"
+//         />
+//         <Bar dataKey="sessionLength" fill="#00FF00" />
+//         {/* <Legend content={<RenderLegend />} /> */}
+//       </LineChart>
+//     </ResponsiveContainer>
+//     // </div>
+//   );
+// }
 
 export default SessionLineChart;

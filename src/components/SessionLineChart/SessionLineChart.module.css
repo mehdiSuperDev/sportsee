@@ -2,9 +2,9 @@
     flex: 0 1 auto;
 } */
 
-.parent {
+/* .parent {
      flex: 0 0 33.33%;
-}
+} */
 
 .line-chart {
     /* flex-grow: 0;     
@@ -35,3 +35,9 @@
 }
 
 /* Tooltip */
+
+/* test */
+
+.responsiveContainer {
+    background-color: red;
+}

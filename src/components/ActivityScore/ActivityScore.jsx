@@ -27,7 +27,7 @@ function ActivityScore({ data }) {
   return (
     <div className={styles.container}>
       <h2>Score</h2>
-      <ResponsiveContainer width="100%" height="100%">
+      <ResponsiveContainer width="100%" height="100vh">
         <RadialBarChart
           innerRadius={100}
           outerRadius={200}
