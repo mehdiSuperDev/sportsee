@@ -10,7 +10,7 @@ import {
   ResponsiveContainer,
   // Legend,
 } from 'recharts';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import styles from './SessionLineChart.module.css';
 
 const RenderLegend = () => {
@@ -25,14 +25,14 @@ const CustomTooltip = () => {
   );
 };
 
-// CustomTooltip.propTypes = {
-//   active: PropTypes.bool,
-//   coordinate: PropTypes.shape({
-//     x: PropTypes.number,
-//     y: PropTypes.number,
-//   }),
-//   containerWidth: PropTypes.number,
-// };
+CustomTooltip.propTypes = {
+  active: PropTypes.bool,
+  coordinate: PropTypes.shape({
+    x: PropTypes.number,
+    y: PropTypes.number,
+  }),
+  containerWidth: PropTypes.number,
+};
 
 const data = [
   {
@@ -67,41 +67,39 @@ const data = [
 
 function SessionLineChart() {
   return (
-    <ResponsiveContainer
-      width="100%"
-      height="100%"
-      className="styles.container"
-    >
-      <LineChart width="50%" height="50%" data={data}>
-        <CartesianGrid stroke="" fill="#FF0000" />
-        <XAxis
-          dataKey="day"
-          stroke="#FFFFFF"
-          opacity={0.5}
-          tickLine={false}
-          axisLine={false}
-        />
-        <YAxis
-          padding={{ top: 50 }}
-          stroke="#FFFFFF"
-          opacity={0.5}
-          tickLine={false}
-          axisLine={false}
-          hide
-        />
-        <Tooltip content={<CustomTooltip />} />
-        <Legend />
-        <Line
-          type="natural"
-          dataKey="sessionLength"
-          stroke="#FFFFFF"
-          dot={false}
-          strokeWidth={2.5}
-          legendType="none"
-        />
-        <Legend content={<RenderLegend />} />
-      </LineChart>
-    </ResponsiveContainer>
+    <div className={styles.containerMehdi}>
+      <ResponsiveContainer width="100%" height="100%">
+        <LineChart width="50%" height="50%" data={data}>
+          <CartesianGrid stroke="" fill="#FF0000" />
+          <XAxis
+            dataKey="day"
+            stroke="#FFFFFF"
+            opacity={0.5}
+            tickLine={false}
+            axisLine={false}
+          />
+          <YAxis
+            padding={{ top: 50 }}
+            stroke="#FFFFFF"
+            opacity={0.5}
+            tickLine={false}
+            axisLine={false}
+            hide
+          />
+          <Tooltip content={<CustomTooltip />} />
+          <Legend />
+          <Line
+            type="natural"
+            dataKey="sessionLength"
+            stroke="#FFFFFF"
+            dot={false}
+            strokeWidth={2.5}
+            legendType="none"
+          />
+          <Legend content={<RenderLegend />} />
+        </LineChart>
+      </ResponsiveContainer>
+    </div>
   );
 }
 

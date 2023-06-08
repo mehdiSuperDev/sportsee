@@ -1,21 +1,12 @@
-/* .chartContainer {
-    flex: 0 1 auto;
-} */
-
-/* .parent {
-     flex: 0 0 33.33%;
-} */
-
-.line-chart {
-    /* flex-grow: 0;     
+/* .line-chart {
+    flex-grow: 0;     
     flex-shrink: 1;   
-    flex-basis: auto; */
-    background-color: yellow;
-}
+    flex-basis: auto;
+} */
 
-.container {
-    /* width: 260px;
-    height: 265px; */
+.containerMehdi {
+    width: 260px;
+    height: 265px;
     padding: 20px;
 
     border-radius: 20px;
@@ -36,8 +27,8 @@
 
 /* Tooltip */
 
-/* test */
-
-.responsiveContainer {
-    background-color: red;
-}
+.line-chart {
+    flex-grow: 0;     
+    flex-shrink: 1;   
+    flex-basis: auto;
+} 
