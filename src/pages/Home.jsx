@@ -36,13 +36,14 @@ function Home() {
 
   const [cardData, setCardData] = useState([]);
 
-  const [activityData, setActivityData] = useState([
+  const defaultActivityData = [
     {
       day: '2000-01-01',
       kilogram: 0,
       calories: 0,
     },
-  ]);
+  ];
+  const [activityData, setActivityData] = useState(defaultActivityData);
   const [sessionsData, setSessionsData] = useState(null);
   const [performanceData, setPerformanceData] = useState([
     { name: 'glucides', value: 0 },
@@ -72,37 +73,65 @@ function Home() {
 
   //OK
   const fetchInformation = async () => {
-    const response = await UserService.getInformation(18);
-    setInformationData(response);
-    setCards(response);
-    updateName(response);
+    try {
+      const response = await UserService.getInformation(18);
+      setInformationData(response);
+      setCards(response);
+      updateName(response);
+    } catch (error) {
+      console.error(
+        "Une erreur s'est produite lors de la récupération des données de session",
+        error,
+      );
+    }
   };
 
   //KO
   //BarChartActivity
   const fetchActivityData = async () => {
-    const response = await UserService.getActivity(18);
-    const activityData = response.data.data.sessions;
-    setActivityData(activityData);
+    try {
+      const response = await UserService.getActivity(18);
+      const activityData = response.data.data.sessions;
+      setActivityData(activityData);
+    } catch (error) {
+      console.error(
+        "Une erreur s'est produite lors de la récupération des données de session",
+        error,
+      );
+    }
   };
 
   //SessionLineChart
   //TODO: Traiter le cas de l'erreur 404
   const fetchSessionsData = async () => {
-    const response = await UserService.getSessions(18);
-    const sessions = response.data.data.sessions;
-    setSessionsData(sessions);
+    try {
+      const response = await UserService.getSessions(0);
+      const sessions = response.data.data.sessions;
+      setSessionsData(sessions);
+    } catch (error) {
+      console.error(
+        "Une erreur s'est produite lors de la récupération des données de session",
+        error,
+      );
+    }
   };
 
   //OK
   const fetchPerformance = async () => {
-    const response = await UserService.getPerformance(18);
+    try {
+      const response = await UserService.getPerformance(0);
 
-    const kindDict = response.data.data.kind;
-    const mappedData = response.data.data.data.map((item) => {
-      return { kind: kindDict[item.kind], value: item.value };
-    });
-    setPerformanceData(mappedData);
+      const kindDict = response.data.data.kind;
+      const mappedData = response.data.data.data.map((item) => {
+        return { kind: kindDict[item.kind], value: item.value };
+      });
+      setPerformanceData(mappedData);
+    } catch (error) {
+      console.error(
+        "Une erreur s'est produite lors de la récupération des données de session",
+        error,
+      );
+    }
   };
 
   useEffect(() => {

@@ -106,4 +106,8 @@ BarChartActivity.propTypes = {
   ),
 };
 
+BarChartActivity.defaultProps = {
+  data: { day: '2000-01-01', kilogram: 0, calories: 0 },
+};
+
 export default BarChartActivity;
