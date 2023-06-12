@@ -26,8 +26,8 @@
 /* container */
 
 .container {
-    height: 265px;
-    flex: 0 0 33.33%;
+    /* height: 265px; */
+    flex: 1;
     border-radius: 10px;
     font-family: 'Roboto', sans-serif;
     position: relative;

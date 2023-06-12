@@ -1,34 +1,30 @@
-/* .line-chart {
-    flex-grow: 0;     
-    flex-shrink: 1;   
-    flex-basis: auto;
-} */
-
-.containerMehdi {
-    width: 260px;
+.container {
+    flex: 1;
     height: 265px;
     padding: 20px;
-
-    border-radius: 20px;
-
-    background-color: #00FF00;
-    position: relative;
+    
+    border-radius: 10px;
+    background-color: red;
 }
 
 .header {
-    position: absolute;
-    top: 35px;
-    left: 35px;
-}
-
-.tooltip {
-    background-color: #FFFFFF;
+    padding-left: 35px;
+    color: rgba(255, 255, 255, 0.5);
+    font-family: roboto, sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.5;
 }
 
 /* Tooltip */
 
-.line-chart {
-    flex-grow: 0;     
-    flex-shrink: 1;   
-    flex-basis: auto;
-} 
+.tooltip {
+    background-color: #FFFFFF;
+    padding: 10px;
+}
+
+.label {
+    font-family: roboto, sans-serif;
+    font-size: 8px;
+    font-weight: 500;
+}

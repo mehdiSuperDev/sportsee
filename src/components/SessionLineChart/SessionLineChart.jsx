@@ -3,74 +3,53 @@ import {
   Tooltip,
   XAxis,
   Line,
-  CartesianGrid,
-  // Bar,
   Legend,
   YAxis,
   ResponsiveContainer,
-  // Legend,
 } from 'recharts';
 import PropTypes from 'prop-types';
 import styles from './SessionLineChart.module.css';
 
 const RenderLegend = () => {
-  return <p className={styles.header}>Durée moyenne des sessions</p>;
-};
-
-const CustomTooltip = () => {
   return (
-    <div className={styles.tooltip}>
-      <p className={styles.label}>Hello</p>
-    </div>
+    <p className={styles.header}>
+      Durée moyenne des <br /> sessions
+    </p>
   );
 };
 
-CustomTooltip.propTypes = {
-  active: PropTypes.bool,
-  coordinate: PropTypes.shape({
-    x: PropTypes.number,
-    y: PropTypes.number,
-  }),
-  containerWidth: PropTypes.number,
+const RenderTooltip = ({ active, payload }) => {
+  if (active && payload && payload.length) {
+    return (
+      <div className={styles.tooltip}>
+        <p className={styles.label}>{`${payload[0].value}min`}</p>
+      </div>
+    );
+  }
+
+  return null;
 };
 
-const data = [
-  {
-    day: 1,
-    sessionLength: 30,
-  },
-  {
-    day: 2,
-    sessionLength: 23,
-  },
-  {
-    day: 3,
-    sessionLength: 45,
-  },
-  {
-    day: 4,
-    sessionLength: 50,
-  },
-  {
-    day: 5,
-    sessionLength: 10,
-  },
-  {
-    day: 6,
-    sessionLength: 20,
-  },
-  {
-    day: 7,
-    sessionLength: 60,
-  },
-];
+RenderTooltip.propTypes = {
+  active: PropTypes.bool,
+  payload: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.number,
+    }),
+  ),
+};
 
-function SessionLineChart() {
+function SessionLineChart({ data }) {
+  const days = ['L', 'M', 'M', 'J', 'V', 'S', 'D'];
+  const formattedData = data.map((d) => ({
+    ...d,
+    day: days[d.day - 1],
+  }));
+
   return (
-    <div className={styles.containerMehdi}>
+    <div className={styles.container}>
       <ResponsiveContainer width="100%" height="100%">
-        <LineChart width="50%" height="50%" data={data}>
-          <CartesianGrid stroke="" fill="#FF0000" />
+        <LineChart width="50%" height="50%" data={formattedData}>
           <XAxis
             dataKey="day"
             stroke="#FFFFFF"
@@ -79,15 +58,14 @@ function SessionLineChart() {
             axisLine={false}
           />
           <YAxis
-            padding={{ top: 50 }}
+            padding={{ top: 50, bottom: 20 }}
             stroke="#FFFFFF"
             opacity={0.5}
             tickLine={false}
             axisLine={false}
             hide
           />
-          <Tooltip content={<CustomTooltip />} />
-          <Legend />
+          <Tooltip content={<RenderTooltip />} />
           <Line
             type="natural"
             dataKey="sessionLength"
@@ -96,42 +74,20 @@ function SessionLineChart() {
             strokeWidth={2.5}
             legendType="none"
           />
-          <Legend content={<RenderLegend />} />
+          <Legend content={<RenderLegend />} align="left" verticalAlign="top" />
         </LineChart>
       </ResponsiveContainer>
     </div>
   );
 }
 
-// function SessionLineChart() {
-//   return (
-//     // <div className="styles.parent">
-//     <ResponsiveContainer
-//       width="100%"
-//       height="100%"
-//       className="styles.container"
-//     >
-//       <LineChart data={data}>
-//         <CartesianGrid stroke="" fill="#FF0000" />
-//         <XAxis
-//           dataKey="day"
-//           tick={{ fill: '#FFFFFF', opacity: '0.5' }}
-//           tickMargin={20}
-//         />
-//         <Tooltip content={<CustomTooltip />} />
-//         <Line
-//           type="natural"
-//           dot={false}
-//           dataKey="sessionLength"
-//           strokeWidth={2.5}
-//           stroke="white"
-//         />
-//         <Bar dataKey="sessionLength" fill="#00FF00" />
-//         {/* <Legend content={<RenderLegend />} /> */}
-//       </LineChart>
-//     </ResponsiveContainer>
-//     // </div>
-//   );
-// }
+SessionLineChart.propTypes = {
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      day: PropTypes.number,
+      sessionLength: PropTypes.number,
+    }),
+  ),
+};
 
 export default SessionLineChart;
