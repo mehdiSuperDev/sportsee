@@ -12,44 +12,6 @@ import styles from './BarChartActivity.module.css';
 import iconBlack from '../../assets/images/oval.png';
 import iconRed from '../../assets/images/oval-red.png';
 
-const sessions = [
-  {
-    day: '2020-07-01',
-    kilogram: 80,
-    calories: 240,
-  },
-  {
-    day: '2020-07-02',
-    kilogram: 80,
-    calories: 220,
-  },
-  {
-    day: '2020-07-03',
-    kilogram: 81,
-    calories: 280,
-  },
-  {
-    day: '2020-07-04',
-    kilogram: 81,
-    calories: 290,
-  },
-  {
-    day: '2020-07-05',
-    kilogram: 80,
-    calories: 160,
-  },
-  {
-    day: '2020-07-06',
-    kilogram: 78,
-    calories: 162,
-  },
-  {
-    day: '2020-07-07',
-    kilogram: 76,
-    calories: 390,
-  },
-];
-
 const CustomTooltip = ({ active, payload, label }) => {
   if (active && payload && label) {
     return (
@@ -72,7 +34,7 @@ CustomTooltip.propTypes = {
   label: PropTypes.number,
 };
 
-function BarChartActivity() {
+function BarChartActivity({ data }) {
   return (
     <div className={styles.barChartContainer}>
       <div className={styles.header}>
@@ -89,7 +51,7 @@ function BarChartActivity() {
         </div>
       </div>
       <ResponsiveContainer height="100%" maxwidth="100%">
-        <BarChart width="100%" height="100%" data={sessions}>
+        <BarChart width="100%" height="100%" data={data}>
           <CartesianGrid strokeDasharray="3 3" vertical={false} />
           <XAxis
             tickFormatter={(value, index) => `${index + 1}`}
@@ -97,18 +59,20 @@ function BarChartActivity() {
           />
           <YAxis
             yAxisId="weight"
-            domain={[69, 'auto']}
+            domain={['dataMin - 1', 'dataMax + 1']}
+            type="number"
+            interval={1}
             dataKey="kilogram"
             orientation="right"
             tickLine={false}
             axisLine={{ stroke: '' }}
           />
           <YAxis
-            hide
-            domain={[0, 'dataMax + 10']}
+            type="number"
             yAxisId="calories"
             dataKey="calories"
             tickLine={false}
+            hide
           />
           <Tooltip content={<CustomTooltip />} />
           <Bar
@@ -130,5 +94,15 @@ function BarChartActivity() {
     </div>
   );
 }
+
+BarChartActivity.propTypes = {
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      day: PropTypes.string,
+      kilogram: PropTypes.number,
+      calories: PropTypes.number,
+    }),
+  ),
+};
 
 export default BarChartActivity;

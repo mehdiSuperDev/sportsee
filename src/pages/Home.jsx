@@ -33,7 +33,13 @@ function Home() {
 
   const [cardData, setCardData] = useState([]);
 
-  const [, setActivityData] = useState(null);
+  const [activityData, setActivityData] = useState([
+    {
+      day: '2000-01-01',
+      kilogram: 0,
+      calories: 0,
+    },
+  ]);
   const [sessionsData, setSessionsData] = useState(null);
   const [performanceData, setPerformanceData] = useState([
     { name: 'glucides', value: 0 },
@@ -65,14 +71,15 @@ function Home() {
   //KO
   //BarChartActivity
   const fetchActivityData = async () => {
-    const data = await UserService.getActivity(18);
-    setActivityData(data);
+    const response = await UserService.getActivity(12);
+    const activityData = response.data.data.sessions;
+    setActivityData(activityData);
   };
 
   //SessionLineChart
   //TODO: Traiter le cas de l'erreur 404
   const fetchSessionsData = async () => {
-    const response = await UserService.getSessions(12);
+    const response = await UserService.getSessions(18);
     const sessions = response.data.data.sessions;
     setSessionsData(sessions);
   };
@@ -109,7 +116,7 @@ function Home() {
       <Header />
       <div className={styles.chartContainer}>
         <div className={styles.vertical}>
-          <BarChartActivity />
+          <BarChartActivity data={activityData} />
           <div className={styles.chartBox}>
             <SessionLineChart data={sessionsData ?? [{}]} />
             <ActivityScore
