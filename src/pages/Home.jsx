@@ -8,6 +8,7 @@ import styles from './Home.module.css';
 import PropTypes from 'prop-types';
 import UserService from '../services/ApiService.js';
 import { useEffect, useState } from 'react';
+import SideBar from '../components/SideBar/SideBar';
 
 const CardList = ({ data }) => {
   return (
@@ -29,6 +30,8 @@ CardList.propTypes = {
 };
 
 function Home() {
+  const [name, setName] = useState('');
+
   const [information, setInformationData] = useState(null);
 
   const [cardData, setCardData] = useState([]);
@@ -61,17 +64,24 @@ function Home() {
     }
   }
 
+  function updateName(response) {
+    if (response) {
+      setName(response.data.data.userInfos.firstName);
+    }
+  }
+
   //OK
   const fetchInformation = async () => {
     const response = await UserService.getInformation(18);
     setInformationData(response);
     setCards(response);
+    updateName(response);
   };
 
   //KO
   //BarChartActivity
   const fetchActivityData = async () => {
-    const response = await UserService.getActivity(12);
+    const response = await UserService.getActivity(18);
     const activityData = response.data.data.sessions;
     setActivityData(activityData);
   };
@@ -114,21 +124,33 @@ function Home() {
   return (
     <>
       <Header />
-      <div className={styles.chartContainer}>
-        <div className={styles.vertical}>
-          <BarChartActivity data={activityData} />
-          <div className={styles.chartBox}>
-            <SessionLineChart data={sessionsData ?? [{}]} />
-            <ActivityScore
-              data={{
-                name: 'score',
-                value: information?.data.data.score * 100 || 0,
-              }}
-            />
-            <RadarChartActivity data={performanceData} />
+      <div className={styles.container}>
+        <SideBar />
+        <div className={styles.chartContainer}>
+          <section className={styles.welcome}>
+            <p>
+              <span className={`${styles.greeting} ${styles.gn}`}>Bonjour</span>
+              <span className={`${styles.name} ${styles.gn}`}> {name}</span>
+            </p>
+            <p>Félicitation ! Vous avez explosé vos objectifs hier 👏</p>
+          </section>
+          <div className={styles.chartBottomContainer}>
+            <div className={styles.horizontal}>
+              <BarChartActivity data={activityData} />
+              <div className={styles.chartBox}>
+                <SessionLineChart data={sessionsData ?? [{}]} />
+                <ActivityScore
+                  data={{
+                    name: 'score',
+                    value: information?.data.data.score * 100 || 0,
+                  }}
+                />
+                <RadarChartActivity data={performanceData} />
+              </div>
+            </div>
+            <CardList data={cardData} />
           </div>
         </div>
-        <CardList data={cardData} />
       </div>
     </>
   );

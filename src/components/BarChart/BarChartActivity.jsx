@@ -56,6 +56,7 @@ function BarChartActivity({ data }) {
           <XAxis
             tickFormatter={(value, index) => `${index + 1}`}
             tickLine={false}
+            axisLine={{ stroke: '#D8D8D8' }}
           />
           <YAxis
             yAxisId="weight"

@@ -1,5 +1,47 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+
+    min-height: 100%;
+    height: auto;
+    height: 100vh;
+}
+
+.welcome {
+    font-family: "Roboto", sans-serif;
+    font-size: 18px;
+    font-style: normal;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.greeting {
+    color: black;
+}
+
+.name {
+    color: red;
+}
+
+.gn {
+    font-family: "Roboto", sans-serif;
+    font-size: 48px;
+    font-style: medium;
+}
+
 .chartContainer {
-    margin: 20px;
+    margin: 40px;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    width: 100%;
+    gap: 20px;
+}
+
+.chartBottomContainer {
     display: flex;
     flex-wrap: nowrap;
     flex-direction: row;
@@ -20,7 +62,7 @@
     gap: 20px;
 }
 
-.vertical {
+.horizontal {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
