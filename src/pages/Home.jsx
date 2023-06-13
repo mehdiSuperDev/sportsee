@@ -9,6 +9,8 @@ import PropTypes from 'prop-types';
 import UserService from '../services/ApiService.js';
 import { useEffect, useState } from 'react';
 import SideBar from '../components/SideBar/SideBar';
+import PerformanceModel from '../dataModels/PerformanceModel';
+// import MockerUserService from '../services/MockUserService';
 
 const CardList = ({ data }) => {
   return (
@@ -119,13 +121,9 @@ function Home() {
   //OK
   const fetchPerformance = async () => {
     try {
-      const response = await UserService.getPerformance(0);
-
-      const kindDict = response.data.data.kind;
-      const mappedData = response.data.data.data.map((item) => {
-        return { kind: kindDict[item.kind], value: item.value };
-      });
-      setPerformanceData(mappedData);
+      const response = await UserService.getPerformance(12);
+      const data = new PerformanceModel(response.data).format();
+      setPerformanceData(data);
     } catch (error) {
       console.error(
         "Une erreur s'est produite lors de la récupération des données de session",
