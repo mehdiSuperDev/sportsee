@@ -9,10 +9,50 @@ export default class MockerUserService extends UserService {
     };
   }
 
-  static async getActivity(id) {
+  static async getActivity(id = 0) {
+    console.log(`getPerformance used with id ${id}`);
     return {
       data: {
-        id: id,
+        data: {
+          userId: 18,
+          sessions: [
+            {
+              day: '2020-07-01',
+              kilogram: 50,
+              calories: 240,
+            },
+            {
+              day: '2020-07-02',
+              kilogram: 29,
+              calories: 220,
+            },
+            {
+              day: '2020-07-03',
+              kilogram: 40,
+              calories: 280,
+            },
+            {
+              day: '2020-07-04',
+              kilogram: 30,
+              calories: 500,
+            },
+            {
+              day: '2020-07-05',
+              kilogram: 29,
+              calories: 160,
+            },
+            {
+              day: '2020-07-06',
+              kilogram: 19,
+              calories: 162,
+            },
+            {
+              day: '2020-07-07',
+              kilogram: 59,
+              calories: 390,
+            },
+          ],
+        },
       },
     };
   }

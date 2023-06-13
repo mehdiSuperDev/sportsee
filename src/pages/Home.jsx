@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react';
 import SideBar from '../components/SideBar/SideBar';
 import PerformanceModel from '../dataModels/PerformanceModel';
 import SessionsModel from '../dataModels/SessionsModel';
+import ActivityModel from '../dataModels/ActivityModel';
 // import MockerUserService from '../services/MockUserService';
 
 const CardList = ({ data }) => {
@@ -94,8 +95,8 @@ function Home() {
   const fetchActivityData = async () => {
     try {
       const response = await UserService.getActivity(18);
-      const activityData = response.data.data.sessions;
-      setActivityData(activityData);
+      const data = new ActivityModel(response.data).format();
+      setActivityData(data);
     } catch (error) {
       console.error(
         "Une erreur s'est produite lors de la récupération des données de session",
