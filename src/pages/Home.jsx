@@ -10,6 +10,7 @@ import UserService from '../services/ApiService.js';
 import { useEffect, useState } from 'react';
 import SideBar from '../components/SideBar/SideBar';
 import PerformanceModel from '../dataModels/PerformanceModel';
+import SessionsModel from '../dataModels/SessionsModel';
 // import MockerUserService from '../services/MockUserService';
 
 const CardList = ({ data }) => {
@@ -107,9 +108,9 @@ function Home() {
   //TODO: Traiter le cas de l'erreur 404
   const fetchSessionsData = async () => {
     try {
-      const response = await UserService.getSessions(0);
-      const sessions = response.data.data.sessions;
-      setSessionsData(sessions);
+      const response = await UserService.getSessions(12);
+      const data = new SessionsModel(response.data).format();
+      setSessionsData(data);
     } catch (error) {
       console.error(
         "Une erreur s'est produite lors de la récupération des données de session",

@@ -17,10 +17,43 @@ export default class MockerUserService extends UserService {
     };
   }
 
-  static async getSessions(id) {
+  static async getSessions(id = 0) {
+    console.log(`getPerformance used with id ${id}`);
     return {
       data: {
-        id: id,
+        data: {
+          userId: 12,
+          sessions: [
+            {
+              day: 1,
+              sessionLength: 10,
+            },
+            {
+              day: 2,
+              sessionLength: 33,
+            },
+            {
+              day: 3,
+              sessionLength: 75,
+            },
+            {
+              day: 4,
+              sessionLength: 50,
+            },
+            {
+              day: 5,
+              sessionLength: 10,
+            },
+            {
+              day: 6,
+              sessionLength: 20,
+            },
+            {
+              day: 7,
+              sessionLength: 60,
+            },
+          ],
+        },
       },
     };
   }
