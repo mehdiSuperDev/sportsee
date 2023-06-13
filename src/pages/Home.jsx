@@ -13,6 +13,7 @@ import PerformanceModel from '../dataModels/PerformanceModel';
 import SessionsModel from '../dataModels/SessionsModel';
 import ActivityModel from '../dataModels/ActivityModel';
 import CardsModel from '../dataModels/CardsModel';
+import ScoreModel from '../dataModels/ScoreModel';
 // import MockerUserService from '../services/MockUserService';
 
 const CardList = ({ data }) => {
@@ -35,7 +36,10 @@ CardList.propTypes = {
 };
 
 function Home() {
+  const USER_ID = 12;
+
   const [name, setName] = useState('');
+  const [score, setScore] = useState(0);
 
   const [information, setInformationData] = useState(null);
 
@@ -58,29 +62,31 @@ function Home() {
   ]);
 
   function setCards(response) {
-    if (response) {
-      const data = new CardsModel(response).format();
-      setCardData(data);
-    }
+    const data = new CardsModel(response).format();
+    setCardData(data);
   }
 
   useEffect(() => {
     if (information) {
       setCards(information);
       updateName(information);
+      updateScore(information);
     }
   }, [information]);
 
+  function updateScore(information) {
+    const data = new ScoreModel(information).format();
+    setScore(data);
+  }
+
   function updateName(response) {
-    if (response) {
-      setName(response.data.userInfos.firstName);
-    }
+    setName(response.data.userInfos.firstName);
   }
 
   //OK
   const fetchInformation = async () => {
     try {
-      const response = await UserService.getInformation(18);
+      const response = await UserService.getInformation(USER_ID);
       setInformationData(response.data);
     } catch (error) {
       console.error(
@@ -94,7 +100,7 @@ function Home() {
   //BarChartActivity
   const fetchActivityData = async () => {
     try {
-      const response = await UserService.getActivity(18);
+      const response = await UserService.getActivity(USER_ID);
       const data = new ActivityModel(response.data).format();
       setActivityData(data);
     } catch (error) {
@@ -109,7 +115,7 @@ function Home() {
   //TODO: Traiter le cas de l'erreur 404
   const fetchSessionsData = async () => {
     try {
-      const response = await UserService.getSessions(12);
+      const response = await UserService.getSessions(USER_ID);
       const data = new SessionsModel(response.data).format();
       setSessionsData(data);
     } catch (error) {
@@ -123,7 +129,7 @@ function Home() {
   //OK
   const fetchPerformance = async () => {
     try {
-      const response = await UserService.getPerformance(12);
+      const response = await UserService.getPerformance(USER_ID);
       const data = new PerformanceModel(response.data).format();
       setPerformanceData(data);
     } catch (error) {
@@ -136,17 +142,8 @@ function Home() {
 
   useEffect(() => {
     fetchInformation();
-  }, []);
-
-  useEffect(() => {
     fetchActivityData();
-  }, []);
-
-  useEffect(() => {
     fetchSessionsData();
-  }, []);
-
-  useEffect(() => {
     fetchPerformance();
   }, []);
 
@@ -171,7 +168,7 @@ function Home() {
                 <ActivityScore
                   data={{
                     name: 'score',
-                    value: information?.data.score * 100 || 0,
+                    value: score,
                   }}
                 />
                 <RadarChartActivity data={performanceData} />
