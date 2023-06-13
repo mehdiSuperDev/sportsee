@@ -1,10 +1,25 @@
 import UserService from './ApiService';
 
 export default class MockerUserService extends UserService {
-  static async getInformation(id) {
+  static async getInformation(id = 0) {
+    console.log(`getPerformance used with id ${id}`);
     return {
       data: {
-        id: id,
+        data: {
+          id: 18,
+          userInfos: {
+            firstName: 'Mathieu',
+            lastName: 'Dupont',
+            age: 34,
+          },
+          score: 0.6,
+          keyData: {
+            calorieCount: 666,
+            proteinCount: 44,
+            carbohydrateCount: 111,
+            lipidCount: 222,
+          },
+        },
       },
     };
   }

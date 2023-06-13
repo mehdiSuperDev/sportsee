@@ -12,6 +12,7 @@ import SideBar from '../components/SideBar/SideBar';
 import PerformanceModel from '../dataModels/PerformanceModel';
 import SessionsModel from '../dataModels/SessionsModel';
 import ActivityModel from '../dataModels/ActivityModel';
+import CardsModel from '../dataModels/CardsModel';
 // import MockerUserService from '../services/MockUserService';
 
 const CardList = ({ data }) => {
@@ -58,20 +59,21 @@ function Home() {
 
   function setCards(response) {
     if (response) {
-      const key = response.data.data.keyData;
-
-      setCardData([
-        { name: 'glucides', value: key.calorieCount },
-        { name: 'proteines', value: key.proteinCount },
-        { name: 'lipides', value: key.carbohydrateCount },
-        { name: 'calories', value: key.lipidCount },
-      ]);
+      const data = new CardsModel(response).format();
+      setCardData(data);
     }
   }
 
+  useEffect(() => {
+    if (information) {
+      setCards(information);
+      updateName(information);
+    }
+  }, [information]);
+
   function updateName(response) {
     if (response) {
-      setName(response.data.data.userInfos.firstName);
+      setName(response.data.userInfos.firstName);
     }
   }
 
@@ -79,9 +81,7 @@ function Home() {
   const fetchInformation = async () => {
     try {
       const response = await UserService.getInformation(18);
-      setInformationData(response);
-      setCards(response);
-      updateName(response);
+      setInformationData(response.data);
     } catch (error) {
       console.error(
         "Une erreur s'est produite lors de la récupération des données de session",
@@ -171,7 +171,7 @@ function Home() {
                 <ActivityScore
                   data={{
                     name: 'score',
-                    value: information?.data.data.score * 100 || 0,
+                    value: information?.data.score * 100 || 0,
                   }}
                 />
                 <RadarChartActivity data={performanceData} />
