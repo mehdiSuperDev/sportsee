@@ -36,7 +36,7 @@ CardList.propTypes = {
 };
 
 function Home() {
-  const USER_ID = 18;
+  const USER_ID = 12;
 
   const [name, setName] = useState('');
   const [score, setScore] = useState(0);
@@ -169,7 +169,9 @@ function Home() {
         <div className={styles.container}>
           <SideBar />
           {error ? (
-            <div>Une erreur est survenue : {error.message}</div>
+            <div className={styles.error}>
+              Une erreur est survenue : {error.message}
+            </div>
           ) : (
             <ChartsContainer />
           )}

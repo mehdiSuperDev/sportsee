@@ -68,3 +68,13 @@
     flex-grow: 1;
     row-gap: 20px;
 }
+
+.error {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vh;
+    height: 100vh;
+    color: red;
+    font-size: 20px;
+}
