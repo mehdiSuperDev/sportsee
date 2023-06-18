@@ -36,7 +36,7 @@ CardList.propTypes = {
 };
 
 function Home() {
-  const USER_ID = 12;
+  const USER_ID = 18;
 
   const [name, setName] = useState('');
   const [score, setScore] = useState(0);
@@ -60,6 +60,7 @@ function Home() {
     { name: 'lipides', value: 0 },
     { name: 'calories', value: 0 },
   ]);
+  const [error, setError] = useState(null);
 
   function setCards(response) {
     const data = new CardsModel(response).format();
@@ -83,20 +84,15 @@ function Home() {
     setName(response.data.userInfos.firstName);
   }
 
-  //OK
   const fetchInformation = async () => {
     try {
       const response = await UserService.getInformation(USER_ID);
       setInformationData(response.data);
     } catch (error) {
-      console.error(
-        "Une erreur s'est produite lors de la récupération des données de session",
-        error,
-      );
+      setError(error);
     }
   };
 
-  //KO
   //BarChartActivity
   const fetchActivityData = async () => {
     try {
@@ -104,39 +100,28 @@ function Home() {
       const data = new ActivityModel(response.data).format();
       setActivityData(data);
     } catch (error) {
-      console.error(
-        "Une erreur s'est produite lors de la récupération des données de session",
-        error,
-      );
+      setError(error);
     }
   };
 
   //SessionLineChart
-  //TODO: Traiter le cas de l'erreur 404
   const fetchSessionsData = async () => {
     try {
       const response = await UserService.getSessions(USER_ID);
       const data = new SessionsModel(response.data).format();
       setSessionsData(data);
     } catch (error) {
-      console.error(
-        "Une erreur s'est produite lors de la récupération des données de session",
-        error,
-      );
+      setError(error);
     }
   };
 
-  //OK
   const fetchPerformance = async () => {
     try {
       const response = await UserService.getPerformance(USER_ID);
       const data = new PerformanceModel(response.data).format();
       setPerformanceData(data);
     } catch (error) {
-      console.error(
-        "Une erreur s'est produite lors de la récupération des données de session",
-        error,
-      );
+      setError(error);
     }
   };
 
@@ -147,39 +132,52 @@ function Home() {
     fetchPerformance();
   }, []);
 
-  return (
-    <>
-      <Header />
-      <div className={styles.container}>
-        <SideBar />
-        <div className={styles.chartContainer}>
-          <section className={styles.welcome}>
-            <p>
-              <span className={`${styles.greeting} ${styles.gn}`}>Bonjour</span>
-              <span className={`${styles.name} ${styles.gn}`}> {name}</span>
-            </p>
-            <p>Félicitation ! Vous avez explosé vos objectifs hier 👏</p>
-          </section>
-          <div className={styles.chartBottomContainer}>
-            <div className={styles.horizontal}>
-              <BarChartActivity data={activityData} />
-              <div className={styles.chartBox}>
-                <SessionLineChart data={sessionsData ?? [{}]} />
-                <ActivityScore
-                  data={{
-                    name: 'score',
-                    value: score,
-                  }}
-                />
-                <RadarChartActivity data={performanceData} />
-              </div>
+  const ChartsContainer = () => {
+    return (
+      <div className={styles.chartContainer}>
+        <section className={styles.welcome}>
+          <p>
+            <span className={`${styles.greeting} ${styles.gn}`}>Bonjour</span>
+            <span className={`${styles.name} ${styles.gn}`}> {name}</span>
+          </p>
+          <p>Félicitation ! Vous avez explosé vos objectifs hier 👏</p>
+        </section>
+        <div className={styles.chartBottomContainer}>
+          <div className={styles.horizontal}>
+            <BarChartActivity data={activityData} />
+            <div className={styles.chartBox}>
+              <SessionLineChart data={sessionsData ?? [{}]} />
+              <ActivityScore
+                data={{
+                  name: 'score',
+                  value: score,
+                }}
+              />
+              <RadarChartActivity data={performanceData} />
             </div>
-            <CardList data={cardData} />
           </div>
+          <CardList data={cardData} />
         </div>
       </div>
-    </>
-  );
+    );
+  };
+
+  const MainComponent = () => {
+    return (
+      <>
+        <Header />
+        <div className={styles.container}>
+          <SideBar />
+          {error ? (
+            <div>Une erreur est survenue : {error.message}</div>
+          ) : (
+            <ChartsContainer />
+          )}
+        </div>
+      </>
+    );
+  };
+  return <MainComponent />;
 }
 
 export default Home;
